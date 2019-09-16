@@ -105,7 +105,7 @@ def stocks():
     enddate=request.form['daterange'][-10:]
     app.vars['enddate']=datetime.datetime.strptime(enddate,"%m/%d/%Y").strftime("%Y-%m-%d")
     stockrequest()
-    return render_template('stocktest.html',script=script,div=div)
+    return render_template('stocktest.html')
 
 if __name__ == '__main__':
   app.run(port=33507)
