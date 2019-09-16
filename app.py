@@ -40,7 +40,7 @@ def stockrequest():
         import numpy as np
 
         from bokeh.plotting import figure, output_file, show
-
+        from bokeh.embed import components
 # prepare some data
         if app.vars['close']==0:
             close=0
@@ -82,6 +82,8 @@ def stockrequest():
         p.ygrid.band_fill_color = "olive"
         p.ygrid.band_fill_alpha = 0.1
         show(p)
+        script,div=components(p)
+
     stockplot()
 
 @app.route('/',methods=['GET','POST'])
@@ -104,7 +106,7 @@ def stocks():
     enddate=request.form['daterange'][-10:]
     app.vars['enddate']=datetime.datetime.strptime(enddate,"%m/%d/%Y").strftime("%Y-%m-%d")
     stockrequest()
-    return render_template('stocktest.html')
+    return render_template('stocktest.html',script=script,div=div)
 
 if __name__ == '__main__':
   app.run(port=33507)
