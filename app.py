@@ -107,8 +107,4 @@ def stocks():
     return render_template('stocktest.html')
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-  app.run(port=33507,debug=True)
-=======
   app.run()
->>>>>>> 74c4ee2bb2d86f2020ff1ca6d5fadb5582f5841b
