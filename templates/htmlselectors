@@ -1,0 +1,25 @@
+<form id='stockselector' method='post' action='stocks' >
+  <p>
+Ticker: <input type='text' name='ticker' />
+  </p>
+  <p>
+
+<form id='dataselector' action='stocks' target="result" method="post">
+  <p><b>Data Sets</b></p>
+<input type="checkbox" name="Open" value="Open"> Open
+<input type="checkbox" name="Close" value="Close"> Close
+<input type="checkbox" name="Adj Open" value="Adj Open"> Adj Open
+<input type="checkbox" name="Adj Close" value="Adj Close"> Adj Close
+<p><input type="submit" value="Submit"></p>
+<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
+</form>
