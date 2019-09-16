@@ -82,7 +82,6 @@ def stockrequest():
         p.ygrid.band_fill_color = "olive"
         p.ygrid.band_fill_alpha = 0.1
         show(p)
-        script,div=components(p)
 
     stockplot()
 
