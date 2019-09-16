@@ -81,7 +81,7 @@ def stockrequest():
         p.yaxis.axis_label = 'Price'
         p.ygrid.band_fill_color = "olive"
         p.ygrid.band_fill_alpha = 0.1
-        show(p)
+        save(p)
     stockplot()
 
 @app.route('/',methods=['GET','POST'])
