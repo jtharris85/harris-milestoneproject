@@ -113,7 +113,7 @@ def stocks():
     myplot=plot['p']
     #show(myplot)
     script, div = components(myplot)
-    return render_template('graph.html', script=script, div=div)
+    return render_template('testspace.html', script=script, div=div)
 
 if __name__ == '__main__':
   app.run()
