@@ -1,4 +1,3 @@
-from flask import Flask, render_template, request, redirect
 import numpy as np
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
@@ -13,16 +12,15 @@ app.vars={}
 data={}
 plot={}
 
-#app.vars['ticker']='GOOG'
-#app.vars['open']='Open'
-#app.vars['close']='Close'
-#app.vars['adjclose']='Adj Close'
-#app.vars['adjopen']='Adj Open'
-#startdate='01/01/2010'
-#app.vars['startdate']=datetime.datetime.strptime(startdate,"%m/%d/%Y").strftime("%Y-%m-%d")
-#enddate='12/31/2016'
-#app.vars['enddate']=datetime.datetime.strptime(enddate,"%m/%d/%Y").strftime("%Y-%m-%d")
-
+app.vars['ticker']='GOOG'
+app.vars['open']='Open'
+app.vars['close']='Close'
+app.vars['adjclose']='Adj Close'
+app.vars['adjopen']='Adj Open'
+startdate='01/01/2010'
+app.vars['startdate']=datetime.datetime.strptime(startdate,"%m/%d/%Y").strftime("%Y-%m-%d")
+enddate='12/31/2016'
+app.vars['enddate']=datetime.datetime.strptime(enddate,"%m/%d/%Y").strftime("%Y-%m-%d")
 #Quandl stocks api
 def stockrequest():
     url='https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?api_key=y_KmmxPPeu75fEHcbEg2'
@@ -46,6 +44,7 @@ def stockrequest():
 #Create dataframe
     df=pd.read_json(prep,orient='split')
     return df
+data['df']=stockrequest()
 
 def stockplot():
 # prepare some data
@@ -68,7 +67,7 @@ def stockplot():
     dates = data['df']['Date']
 
 # output to static HTML file
-    output_file("templates/test.html", title="stock test example")
+    #output_file("templates/test.html", title="stock test example")
 
 # create a new plot with a datetime axis type
     p = figure(plot_width=800, plot_height=350, x_axis_type="datetime")
@@ -88,31 +87,6 @@ def stockplot():
     p.ygrid.band_fill_color = "olive"
     p.ygrid.band_fill_alpha = 0.1
     return p
-
-
-@app.route('/',methods=['GET','POST'])
-def stockeselector():
-    if request.method=='GET':
-        return render_template('stockselector.html')
-    else:
-        return redirect('/stocks')
-
-@app.route('/stocks',methods=['POST'])
-def stocks():
-    app.vars['ticker']=request.form['ticker']
-    app.vars['open']=request.form.get('Open',0)
-    app.vars['close']=request.form.get('Close',0)
-    app.vars['adjclose']=request.form.get('Adj Close',0)
-    app.vars['adjopen']=request.form.get('Adj Open',0)
-    startdate=request.form['daterange'][:10]
-    app.vars['startdate']=datetime.datetime.strptime(startdate,"%m/%d/%Y").strftime("%Y-%m-%d")
-    enddate=request.form['daterange'][-10:]
-    app.vars['enddate']=datetime.datetime.strptime(enddate,"%m/%d/%Y").strftime("%Y-%m-%d")
-    data['df']=stockrequest()
-    plot['p']=stockplot()
-    myplot=plot['p']
-    show(myplot)
-    return render_template('test.html')
-
-if __name__ == '__main__':
-  app.run(port=33507,debug=True)
+plot['p']=stockplot()
+p=plot['p']
+show (p)
