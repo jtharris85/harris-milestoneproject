@@ -9,6 +9,7 @@ import requests
 import pandas as pd
 
 app.vars={}
+plot=[]
 #Quandl stocks api
 def stockrequest():
     import simplejson as json
@@ -81,9 +82,10 @@ def stockrequest():
         p.yaxis.axis_label = 'Price'
         p.ygrid.band_fill_color = "olive"
         p.ygrid.band_fill_alpha = 0.1
-        show(p)
+        plot['plot']=show(p)
+        return plot['plot']
 
-    stockplot()
+
 
 @app.route('/',methods=['GET','POST'])
 def stockeselector():
