@@ -68,10 +68,10 @@ def stockplot():
     dates = data['df']['Date']
 
 # output to static HTML file
-    output_file("templates/test.html", title="stock test example")
+    #output_file("templates/test.html", title="stock test example")
 
 # create a new plot with a datetime axis type
-    p = figure(plot_width=800, plot_height=350, x_axis_type="datetime")
+    p = figure(plot_width=550, plot_height=350, x_axis_type="datetime")
 
 # add renderers
     p.line(dates, close, color='blue', legend='Close')
@@ -80,7 +80,7 @@ def stockplot():
     p.line(dates, adjopen, color='green', legend='Adj Open')
 
 # NEW: customize by setting attributes
-    p.title.text = "Stock Prices"
+    p.title.text = app.vars['ticker']
     p.legend.location = "top_left"
     p.grid.grid_line_alpha = 0
     p.xaxis.axis_label = 'Date'
@@ -111,8 +111,9 @@ def stocks():
     data['df']=stockrequest()
     plot['p']=stockplot()
     myplot=plot['p']
-    show(myplot)
-    return render_template('test.html')
+    #show(myplot)
+    script, div = components(myplot)
+    return render_template('graph.html', script=script, div=div)
 
 if __name__ == '__main__':
   app.run(port=33507,debug=True)
