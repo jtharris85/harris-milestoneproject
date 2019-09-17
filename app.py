@@ -107,7 +107,11 @@ def stocks():
     enddate=request.form['daterange'][-10:]
     app.vars['enddate']=datetime.datetime.strptime(enddate,"%m/%d/%Y").strftime("%Y-%m-%d")
     stockrequest()
-    return render_template('stocktest.html')
+    from bokeh.embed import components
+
+    script, div = components(plot)
+    return render_template('graph.html', script=script, div=div)
+
 
 if __name__ == '__main__':
   app.run(port=33507)
