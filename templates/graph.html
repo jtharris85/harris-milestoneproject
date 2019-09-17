@@ -1,15 +1,12 @@
 <html>
-<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
   <head>
-    <meta charset="utf-8">
-    <title>Stock Prices</title>
-    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.css" type="text/css" />
-    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.js"></script>
+    <link rel="stylesheet" href="//cdn.pydata.org/bokeh/release/bokeh-0.12.0.min.css" type="text/css" />
+    <script type="text/javascript" src="//cdn.pydata.org/bokeh/release/bokeh-0.12.0.min.js"></script>
     {{ script | safe }}
   </head>
   <body>
     <div class=page>
-      <h1>Stock Prices</h1>
+      <h1>Header text</h1>
       {{ div | safe }}
     </div>
   </body>
